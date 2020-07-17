@@ -13,15 +13,15 @@ public class AuthService {
         this.authRepository = authRepository;
     }
 
-    public void login(String username, String password) throws IllegalAccessException {
-        User user = authRepository.findByUsername(username).orElseThrow(IllegalAccessException::new);
-        if (!user.getPassword().equals(password)) {
+    public void resetPassword(String oldPassword, String newPassword) throws IllegalAccessException {
+        User user = authRepository.findByUsername(getCurrentAuthUserInSession()).orElseThrow(IllegalAccessException::new);
+        if (!user.getPassword().equals(oldPassword)) {
             throw new IllegalAccessException();
         }
+        authRepository.saveNewPassword(user, newPassword);
     }
 
-    public String loginKey(String ip) {
-        return ip + "-example-service-request-key";
+    public String getCurrentAuthUserInSession() {
+        return "fake-admin";
     }
-
 }

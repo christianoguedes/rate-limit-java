@@ -1,6 +1,6 @@
 package com.example.ratelimit.java.ratelimitjava.controller;
 
-import com.example.ratelimit.java.ratelimitjava.domain.dto.AuthRequest;
+import com.example.ratelimit.java.ratelimitjava.domain.dto.PasswordRequest;
 import com.example.ratelimit.java.ratelimitjava.service.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +17,9 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping
-    public void login(@RequestBody AuthRequest authRequest) throws IllegalAccessException {
-        authService.login(authRequest.getUsername(), authRequest.getPassword());
+    @PostMapping("/reset-password")
+    public void resetPassword(@RequestBody PasswordRequest passwordRequest) throws IllegalAccessException {
+        authService.resetPassword(passwordRequest.getOldPassword(), passwordRequest.getNewPassword());
     }
+
 }
